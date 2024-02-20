@@ -1,0 +1,179 @@
+https://guides.emberjs.com/v4.12.0/tutorial/part-1/ (Explicação basica do ember + Criação de uma aplicação para explicação dos conceitos + Leitura sobre os conceitos principais) 
+
+https://www.educative.io/courses/developing-robust-emberjs-applications (criar uma conta free trial, e fazer o curso do link)
+
+apos vocês finalizar os tutoriais do ember, seguir as formações PHP nestá ordem.
+
+apos as formações PHP, vou passar um projeto para você integrar o ember com o Laravel API, e desenvolverem algumas atividades.
+
+Acesso Alura:
+
+systemar@systemar.com.br
+ZUYzrCtnc7BgYH8$
+
+1. https://cursos.alura.com.br/formacao-linguagem-php
+
+2. https://cursos.alura.com.br/formacao-php-web
+
+3. https://cursos.alura.com.br/formacao-laravel
+
+
+-------------------------------------------------------------------
+
+O armazenamento Ember Data atua como uma espécie de intermediário entre nosso aplicativo e o servidor; ele faz muitas coisas importantes, 
+incluindo armazenar em cache as respostas que foram obtidas do servidor. Se solicitarmos alguns registros (instâncias de classes de modelo)
+que já havíamos buscado no servidor no passado, o armazenamento da Ember Data garante que podemos acessar os registros imediatamente, 
+sem ter que buscá-los novamente desnecessariamente e esperar a resposta do servidor. Mas, se ainda não tivermos essa resposta armazenada em 
+cache em nossa loja, ela irá disparar e buscá-la no servidor. Muito bom, certo?
+
+
+adaptadores e serializadores
+
+Os adaptadores tratam de como e onde o Ember Data deve buscar dados de seus servidores, como usar HTTP, HTTPS, WebSockets ou armazenamento 
+local, bem como URLs, cabeçalhos e parâmetros a serem usados ​​para essas solicitações. Por outro lado, os serializadores são responsáveis 
+​​por converter os dados retornados pelo servidor em um formato que o Ember Data possa entender.
+
+
+Definindo rotas 
+Router.map(function () {
+  this.route('about');
+});
+o map() é usado para definir o mapeamento de URl a função passada por parametro sera invocada com o valor this definido para um objeto
+{ path: '/favs' } caminho da url
+
+<rotas aninhadas>
+Router.map(function() {
+  this.route('posts', function() {
+    this.route('new');
+  });
+});
+
+<segmentos dinâmicos> 
+usado para navegar dentro do conteudo da pagina, mais detalhada
+Router.map(function() {
+  this.route('posts');
+  > this.route('post', { path: '/post/:post_id' });
+});
+
+<rotas coringas>
+Router.map(function() {
+  this.route('not-found', { path: '/*path' });
+});
+
+No arquivo route ficam os manipuladores de rotas 
+
+
+
+
+
+--------
+transições entre rotas 
+- A partir de um modelo, use <LinkTo />conforme mencionado acima
+- De qualquer outro lugar em seu aplicativo, como um componente, injete o Router Service e use o transitionTo()método
+
+---- <LinkTo>
+@route nome da rota que vai ser vinculada 
+@model argumento é um objeto de modelo para preencher o segmento dinamico da rota
+
+
+--- hook model()
+ model() {
+    return [
+      { title: 'Ember Roadmap' },
+      { title: 'Accessibility in Ember' },
+      { title: 'EmberConf Recap' }
+    ];
+  } - definição
+
+  {{#each @model as |post|}}
+  <div>
+    {{post.title}}
+  </div>
+{{/each}} - chamada
+
+o routes recebe os resultados do gancho do modelo e o ember disponibiliza os resultados do gancho do modelo para o modelo
+
+
+----adaptadores
+
+----serializadores
+
+
+----estado e ações do componente
+modificadores de ação 
+para anexar um manipulador de eventos a uma tag usamos o on modificador html, esses modificadores 
+sao uma sintaxe ember que permite anexar logica a uma tag
+
+<button type="button" {{on "click" this.decrement}}>-1</button>
+
+para que os manipuladores façam algo é preciso definir actions no componentes js 
+>>>>uma action é um metodo js que pode ser usado a partir de um modelo
+
+@action
+  decrement() {
+    this.count = this.count - 1;
+  }
+
+podemos definir um unico action para duas açoes diferentes mas com o mesmo escopo
+@action
+  change(amount) {
+    this.count = this.count + amount;
+  }
+  o change pe um metodo que usa o valor como parametro 
+
+  entao transformamos o manipualdor em uma fuinção que passa o valor  como argumento
+  o fn é um auxiliar 
+  <button type="button" {{on "click" (fn this.change 1)}}>+1</button>
+
+o manipulador (on) usa função como segundo argumento, se houver, pode criar uma função embutida usando a fn
+
+arquitetura mvc 
+model - view - controler
+
+modelo - manipulação dos dados
+view - visualização - iteração do usuário o que vai aparecer para ele
+controller - controlador - camada de controle dos templates e componentes
+
+routes - modelos de rotas - manipulação dos templates onde há a necessidade de rotas
+primeiro carregado na aplicação
+
+hooks do ciclo de vida do ember
+ model() - busca e prepara todos os dados necessários para a rota
+ nesse hook se busca dados do servidor 
+
+ beforeModel() - hook que sera carregado anetes de qualquer outro hook um exemplo pratico é verficar se 
+ usuario pode acessar tal pagina antes da pagina ser acrregada no model
+
+ afterModel() - tipo de hook que sera carregado para por exemplo apagar algumas informações apos a sessao ser finalziada
+
+ beforeEach() - hook de teste, carrega informações para que os hooks de teste (teste()) funcionaldiades
+
+ ember data - forma de fazer requesições atraves do ember, não é obrigatorio, mas simplifica 
+
+afterModel() - forma de trabalhar com promises sem que o model tenha um async, assim que as promises sao concluidas
+
+Object Proxy - objeto que envole outros objetos e interceptar todos os seus get e sets para eles 
+
+hash - um serializador precisará implementar um método 
+serialize . EmberData fornecerá um snapshot do registro e um 
+hash de opções e este método deverá retornar um objeto que o 
+adaptador enviará ao servidor ao criar, atualizar ou excluir 
+um registro.
+com a existencia do hash nao é necessario tranformar o hook em assincrono pois o hash espera todas as ifnormações estarem resolvidas
+
+-------------------------------------
+componentes: criam conteudo reutilizaveis. 
+tem duas partes: 
+um arquivo js - descreve o comportamento do componente 
+um modelo hbs - define a interface do usuario do componente
+
+templates: descrevem a interface do usuario da aplicação, usa a sintaxe do hbs 
+para escrever elementos dinamicos
+
+rotas: carregam controladores e modelos 
+
+controllers - objeto roteavel emparelhado com uam rota individual com o mesmo nome
+recebe uma unica propriedade model da rota
+
+models - conhecidos como models ember data, representam os dados que a aplicação apresenta ao usuario
+esses modelso diferem da model rota.
