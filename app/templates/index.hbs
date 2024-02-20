@@ -1,0 +1,28 @@
+<Jumbo>
+    <h2>Welcome to Super Rentals!</h2>
+    <p>We hope you find exactly what you're looking for in a place to stay.</p>
+    <LinkTo @route="about" class="button">About Us</LinkTo>
+</Jumbo>
+
+<Rentals @rentals={{@model}} />
+
+{{!-- <div class="rentals">
+  <label>
+    <span>Where would you like to stay?</span>
+    <input class="light">
+  </label>
+    <ul class="results">
+    {{#each @model as |rental|}}
+      <li><Rental @rental={{rental}} /></li>
+    {{/each}}
+    </ul> 
+</div>
+
+Ao passar @model para o <Rental> componente como @rental argumento, teremos acesso ao nosso objeto modelo "Grand Old
+Mansion" no <Rental>modelo do componente! Agora, podemos substituir nossos valores codificados neste componente usando
+os valores que residem em nosso @rental modelo.
+
+Dentro do bloco temos acesso ao item da iteração atual com a {{rental}} variável. Mas por que rental? Bem, porque nós 
+o chamamos assim! Esta variável vem da as |rental|declaração do eachloop. Poderíamos facilmente ter chamado de outra coisa, 
+como as |property|, e nesse caso teríamos que acessar o item atual por meio da {{property}}variável. --}}
+

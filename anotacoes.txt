@@ -1,0 +1,18 @@
+https://guides.emberjs.com/v4.12.0/tutorial/part-1/ (Explicação basica do ember + Criação de uma aplicação para explicação dos conceitos + Leitura sobre os conceitos principais) 
+
+https://www.educative.io/courses/developing-robust-emberjs-applications (criar uma conta free trial, e fazer o curso do link)
+
+apos vocês finalizar os tutoriais do ember, seguir as formações PHP nestá ordem.
+
+apos as formações PHP, vou passar um projeto para você integrar o ember com o Laravel API, e desenvolverem algumas atividades.
+
+Acesso Alura:
+
+systemar@systemar.com.br
+ZUYzrCtnc7BgYH8$
+
+1. https://cursos.alura.com.br/formacao-linguagem-php
+
+2. https://cursos.alura.com.br/formacao-php-web
+
+3. https://cursos.alura.com.br/formacao-laravel

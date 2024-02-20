@@ -1,0 +1,30 @@
+<div class="rentals">
+    <label>
+        <span>Where would you like to stay?</span>
+        <Input @value={{this.query}} class="light"/> {{!--sempre que o usuário digitar algo na caixa de entrada, ele this.query mude de acordo --}}
+    </label>
+    <ul class="results">
+        {{!-- {{#each @rentals as |rental|}}
+        <li>
+            <Rental @rental={{rental}} />
+        </li>
+        {{/each}} --}}
+        <Rentals::Filter @rentals={{@rentals}} @query={{this.query}} as |results|>
+            {{#each results as |rental|}}
+            <li>
+                <Rental @rental={{rental}} />
+            </li>
+            {{/each}}
+        </Rentals::Filter>
+    </ul>
+</div>
+
+{{!--o ember permite passar dados arbitrarios para blocos na forma de argumentos adicionais para a yield
+as |results |permite que o bloco acesse os dados produzidos usadno a variavel local results 
+Os dados obtidos vieram de {{yield this.results}}, onde this.resultsestá nossa lista filtrada de imóveis para alugar.
+--}}
+{{!-- 
+padrão de componente provedor = o componente configura alguma aprte do estado (this.results lista para propriedades para aluguel fitlradas)
+em seguida devolve o estado ao chamador (Rentals) na forma de um parametro de bloco (as |results|)
+
+ --}}

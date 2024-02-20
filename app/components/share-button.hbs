@@ -1,0 +1,14 @@
+<a
+  ...attributes
+  href={{this.shareURL}}
+  target="_blank"
+  rel="external nofollow noopener noreferrer"
+  class="share button"
+>
+  {{yield}}
+</a>
+{{!--o class foge da regra a ultima gravação ganha, pois -- os valores do classatributo são mesclados (concatenados). 
+Há uma boa razão para isso: permite que o componente especifique quaisquer classes de que necessita , ao mesmo tempo que 
+permite que os invocadores do componente adicionem livremente quaisquer classes extras necessárias para fins de estilo.}}
+
+{{!-- {{yield}} tag para que possamos customizar o texto do link posteriormente ao invocar o <ShareButton>componente.--}}
